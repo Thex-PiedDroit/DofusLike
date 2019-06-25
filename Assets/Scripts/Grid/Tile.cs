@@ -1,4 +1,5 @@
 ﻿
+using System.Collections.Generic;
 using UnityEngine;
 
 
@@ -7,11 +8,19 @@ public class Tile : MonoBehaviour
 #region Variables (serialized)
 
 	[SerializeField]
-	private SpriteRenderer m_spriteRenderer = null;
+	private SpriteRenderer m_overlaySpriteRenderer = null;
 
 	#endregion
 
 #region Variables (private)
+
+	static private readonly Dictionary<CombatEnum, Color> OVERLAY_COLORS = new Dictionary<CombatEnum, Color>
+	{
+		[CombatEnum.Movement] = ColorReferences.MOVEMENT_GREEN,
+		[CombatEnum.Targetting] = ColorReferences.TARGETTING_BLUE,
+	};
+	private const float OVERLAY_ALPHA = 0.78f;
+
 
 	private Vector2Int m_posInGrid = Vector2Int.zero;
 
@@ -19,6 +28,21 @@ public class Tile : MonoBehaviour
 
 	#endregion
 
+
+	private void ActivateOverlay(CombatEnum purpose)
+	{
+		UpdateOverlayColor(purpose);
+		m_overlaySpriteRenderer.gameObject.SetActive(true);
+	}
+
+	private void UpdateOverlayColor(CombatEnum purpose)
+	{
+		Color overlayColor = Color.white;
+		if (OVERLAY_COLORS.ContainsKey(purpose))
+			overlayColor = OVERLAY_COLORS[purpose];
+
+		m_overlaySpriteRenderer.color = overlayColor.SetAlpha(OVERLAY_ALPHA);
+	}
 
 #region Getters
 

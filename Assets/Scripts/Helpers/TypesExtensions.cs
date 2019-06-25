@@ -272,7 +272,7 @@ static public class StringExtensions
 				return (T)enumValue;
 		}
 
-		DebugTools.LogWarning("Could not find matching enum for \"" + str + " in enum \"" + typeof(T).ToString() + "\"!");
+		DebugTools.LogWarning("Could not find matching enum for \"{0}\" in enum \"{1}\"!", str, typeof(T).ToString());
 		return defaultValue;
 	}
 
@@ -289,5 +289,14 @@ static public class StringExtensions
 	static public string Replace(this string str, int index, char character)
 	{
 		return str.Remove(index, 1).Insert(index, character.ToString());
+	}
+}
+
+static public class ColorExtensions
+{
+	static public Color SetAlpha(this Color color, float alpha)
+	{
+		color.a = alpha;
+		return color;
 	}
 }
