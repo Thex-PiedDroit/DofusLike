@@ -29,10 +29,15 @@ public class Tile : MonoBehaviour
 	#endregion
 
 
-	private void ActivateOverlay(CombatEnum purpose)
+	public void ActivateOverlay(CombatEnum purpose)
 	{
 		UpdateOverlayColor(purpose);
 		m_overlaySpriteRenderer.gameObject.SetActive(true);
+	}
+
+	public void DisableOverlay()
+	{
+		m_overlaySpriteRenderer.gameObject.SetActive(false);
 	}
 
 	private void UpdateOverlayColor(CombatEnum purpose)

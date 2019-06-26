@@ -4,11 +4,11 @@ using UnityEngine;
 
 static public class Toolkit
 {
-	static public void DestroyContextual(GameObject gameObject)
+	public static void DestroyContextual(Object item)
 	{
 		if (Application.isPlaying)
-			Object.Destroy(gameObject);
+			Object.Destroy(item);
 		else
-			Object.DestroyImmediate(gameObject);
+			Object.DestroyImmediate(item);
 	}
 }

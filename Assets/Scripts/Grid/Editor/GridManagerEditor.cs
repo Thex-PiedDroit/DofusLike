@@ -33,7 +33,12 @@ public class GridManagerEditor : Editor
 		if (GRID_FIELD.GetValue(target) is Tile[,] grid)
 		{
 			foreach (Tile tile in grid)
-				Toolkit.DestroyContextual(tile.gameObject);
+			{
+				if (tile.gameObject != null)
+					Toolkit.DestroyContextual(tile.gameObject);
+				else
+					Toolkit.DestroyContextual(tile);
+			}
 
 			GRID_FIELD.SetValue(target, null);
 		}

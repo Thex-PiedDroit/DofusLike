@@ -44,7 +44,7 @@ static public class Pathfinder
 		else
 			pathQueue.Clear();
 
-		int minDistance = GetDistanceBetweenNodes(origin, destination);
+		int minDistance = GridUtils.GetDistanceBetweenTiles(origin, destination);
 
 		List<Node> tilesToCheck = new List<Node>(minDistance);
 		List<Node> checkedTiles = new List<Node>(minDistance);
@@ -122,7 +122,7 @@ static public class Pathfinder
 	static private void AddNeighbourToList(Tile neighbour, List<Node> list, Node centerNode, Tile destination)
 	{
 		float distanceFromStartToHere = centerNode.m_distanceFromStart + 1;
-		int distanceFromDestination = GetDistanceBetweenNodes(neighbour, destination);
+		int distanceFromDestination = GridUtils.GetDistanceBetweenTiles(neighbour, destination);
 
 		int indexInOpenList = FindNodeInList(neighbour, list);
 
@@ -181,15 +181,6 @@ static public class Pathfinder
 		}
 
 		return -1;
-	}
-
-	static private int GetDistanceBetweenNodes(Tile origin, Tile destination)
-	{
-		Vector2Int distanceVector = destination.GetPosInGrid() - origin.GetPosInGrid();
-		distanceVector.x = Mathf.Abs(distanceVector.x);
-		distanceVector.y = Mathf.Abs(distanceVector.y);
-
-		return Mathf.Abs(distanceVector.x + distanceVector.y);
 	}
 
 	static private Queue<Tile> RetracePathFromEnd(List<Node> closedList, Tile start, Queue<Tile> pathQueue)
